@@ -3,6 +3,12 @@ package com.example.demo.Entities;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -12,8 +18,8 @@ import lombok.*;
 @NoArgsConstructor
 
 
-
-public class Users {
+//per l'overraid implemento la classe dipendente con UD
+public class Users implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
@@ -24,4 +30,20 @@ public class Users {
     private String password;
     @Enumerated(EnumType.STRING)
     private Ruolo ruolo;
+
+    public Users(String email, String password, Ruolo ruolo) {
+        this.email = email;
+        this.password = password;
+        this.ruolo = ruolo;
+    }
+    @Override
+    //metodo che mi da la collection di ruoli e poi faccio name perchè stringhe di enum si tirano fuori con .name
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        return List.of(new SimpleGrantedAuthority(this.ruolo.name()));
+    }
+    @Override
+    public String getUsername(){
+        return this.email;
+    }
+
 }
