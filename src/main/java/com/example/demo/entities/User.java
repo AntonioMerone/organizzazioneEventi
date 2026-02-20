@@ -38,7 +38,7 @@ public class User implements UserDetails {
     @Override
     //metodo che mi da la collection di ruoli e poi faccio name perchè stringhe di enum si tirano fuori con .name
     public Collection<? extends GrantedAuthority> getAuthorities(){
-        return List.of(new SimpleGrantedAuthority(this.ruolo.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.ruolo.name()));
     }
     @Override
     public String getUsername(){
