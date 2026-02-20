@@ -13,10 +13,14 @@ import java.util.List;
 public interface PrenotazioniRepository extends JpaRepository<Prenotazione, Long> {
 
     //capisco e controllo le prentoazione se è fatta da utente o organizzatore
-    List<Prenotazione> findByUser(Long userId);
+    // prenotazioni di un utente
+    List<Prenotazione> findByUser_Id(Long userId);
 
-    boolean existByUserAndEvento(User user, Evento evento);
+    // evita doppia prenotazione: stesso utente sullo stesso evento
+    boolean existsByUser_IdAndEvento_Id(Long userId, Long eventoId);
 
-    long DisponibilitaPostiEvento(Evento evento);
+    // conta prenotazioni per capire se ci sono posti
+    long countByEvento_Id(Long eventoId);
 
 }
+
