@@ -1,4 +1,4 @@
 package com.example.demo.Entities;
 
-public class Prenotazioni {
+public class Evento {
 }

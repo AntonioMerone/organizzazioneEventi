@@ -1,6 +1,5 @@
 package com.example.demo.Entities;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +18,7 @@ import java.util.List;
 
 
 //per l'overraid implemento la classe dipendente con UD
-public class Users implements UserDetails {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
@@ -31,7 +30,7 @@ public class Users implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Ruolo ruolo;
 
-    public Users(String email, String password, Ruolo ruolo) {
+    public User(String email, String password, Ruolo ruolo) {
         this.email = email;
         this.password = password;
         this.ruolo = ruolo;
